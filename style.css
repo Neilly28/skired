@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "MS Sans Serif";
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.title {
+  margin-top: 100px;
+  height: 18px;
+  width: 600px;
+  background: #000080;
+  color: #fff;
+}
+
+h1.title {
+  margin: 2px 0 0 1px;
+  float: left;
+  font-family: Tahoma;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.title button {
+  /*position:absolute;
+    right:3px;
+    top:3px;*/
+  margin: 2px 2px 2px 0;
+  float: right;
+  width: 14px;
+  height: 13.5px;
+  background: #c0c0c0;
+  border-width: 1px;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 0;
+  font-size: 9px;
+  font-weight: bold;
+  font-family: Tahoma;
+  text-align: center;
+  focus: none;
+}
