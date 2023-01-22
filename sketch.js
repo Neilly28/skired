@@ -2,12 +2,16 @@ console.log("hello from sketch!");
 
 let players = [];
 let obstacles = [];
+let rocks = [];
+let rainbows = [];
 // let message = "yeti imminent...";
 
 function preload() {
   playerImage = loadImage("/skier.png");
   obstacleImage = loadImage("/tree.png");
+  rockImage = loadImage("/rock.png");
   ouchImage = loadImage("/ouch.png");
+  rainbowImage = loadImage("/rainbow.png");
 }
 
 function setup() {
@@ -30,13 +34,21 @@ function setup() {
   }
 
   //   spawn obstalce
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     let obstacle = {
       x: random(0, 600),
-      y: random(400, 600),
+      y: random(700, 1000),
     };
     obstacles.push(obstacle);
   }
+
+  // spawn rainbow
+  //   for (let i = 0; i < 1; i++) {
+  //     let rainbow = {
+  //       x: random(0, 600),
+  //       y: random(400, 600),
+  //     };
+  //   }
 }
 
 function draw() {
@@ -63,13 +75,13 @@ function draw() {
     image(obstacleImage, obstacle.x, obstacle.y);
 
     // remove obstacles that are out of the screen
-    if (obstacle.y < -100) {
+    if (obstacle.y < -1000) {
       obstacles.splice(0, 1);
 
       //   generate new obstalces
       obstacles.push({
-        x: random(0, 500),
-        y: 600,
+        x: random(0, 600),
+        y: random(600, 1500),
       });
     }
   }
