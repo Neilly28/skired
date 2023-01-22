@@ -2,6 +2,7 @@ console.log("hello from sketch!");
 
 let players = [];
 let obstacles = [];
+// let message = "yeti imminent...";
 
 function preload() {
   playerImage = loadImage("/skier.png");
@@ -18,23 +19,20 @@ function setup() {
       y: 100,
       size: 50,
       moveRight() {
-        this.x += 1;
+        this.x += 2;
       },
       moveLeft() {
-        this.x -= 1;
-      },
-      moveDown() {
-        this.y += 2;
+        this.x -= 2;
       },
     };
     players.push(player);
   }
 
   //   spawn obstalce
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     let obstacle = {
       x: random(0, 600),
-      y: random(300, 600),
+      y: random(400, 600),
     };
     obstacles.push(obstacle);
   }
@@ -46,28 +44,38 @@ function draw() {
   //   draw the player
   //   image(playerImage, 300, 0, 40, 50);
   for (let player of players) {
-    player.y += 0.5;
+    // player.y += 0.5;
     image(playerImage, player.x, player.y);
     if (keyIsDown(RIGHT_ARROW)) {
       player.moveRight();
     } else if (keyIsDown(LEFT_ARROW)) {
       player.moveLeft();
-    } else if (keyIsDown(DOWN_ARROW)) {
-      player.moveDown();
     }
   }
 
   //   draw the obstacle
   for (let obstacle of obstacles) {
-    obstacle.y -= 0.2;
+    obstacle.y -= 5;
     image(obstacleImage, obstacle.x, obstacle.y);
+
+    // remove obstacles that are out of the screen
+    if (obstacle.y < -100) {
+      obstacles.splice(0, 1);
+
+      //   generate new obstalces
+      obstacles.push({
+        x: random(0, 500),
+        y: 600,
+      });
+    }
   }
 
   //   check for collision
   for (let player of players) {
     for (let obstacle of obstacles) {
       if (dist(player.x, player.y, obstacle.x, obstacle.y) < 15) {
-        player.y -= 1;
+        obstacles.forEach((obstacle) => (obstacle.y += 5));
+        // text(message, 300, 30);
       }
     }
   }
