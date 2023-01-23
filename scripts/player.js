@@ -1,7 +1,7 @@
 class Player {
   constructor(img) {
     this.x = width / 2;
-    this.y = height / 6;
+    this.y = height / 4;
     this.img = img;
   }
 
