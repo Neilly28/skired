@@ -90,3 +90,16 @@ h1.title {
   /* width: 32px; */
   /* margin-bottom: 50px; */
 }
+
+.taskbar {
+  /* float: left; */
+
+  width: 65%;
+  height: 20px;
+  background-color: #000080;
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}

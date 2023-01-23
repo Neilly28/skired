@@ -34,27 +34,32 @@ function setup() {
   player = new Player(playerImage);
 
   //   spawn obstalce
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     obstacles[i] = new Obstacle(
       obstacleImage,
       random(100, 500),
-      random(600, 1200)
+      random(600, 2400)
     );
   }
+  console.log(obstacles);
 
   // spawn rocks
-  for (let i = 0; i < 10; i++) {
-    rocks[i] = new Rock(rockImage, random(100, 500), random(600, 1200));
+  for (let i = 0; i < 20; i++) {
+    rocks[i] = new Rock(rockImage, random(100, 500), random(600, 2400));
   }
 
   // spawn fires
   for (let i = 0; i < 25; i++) {
-    fires[i] = new Fire(fireImage, random(100, 500), random(600, 1200));
+    fires[i] = new Fire(fireImage, random(100, 500), random(600, 2400));
   }
 
   //   spawn rainbows
   for (let i = 0; i < 2; i++) {
-    rainbows[i] = new Rainbow(rainbowImage, random(300, 500), random(400, 600));
+    rainbows[i] = new Rainbow(
+      rainbowImage,
+      random(300, 500),
+      random(600, 2400)
+    );
   }
 }
 
@@ -90,22 +95,23 @@ function draw() {
     noLoop();
   }
 
-  //   draw the obstacle
+  //   draw the obstacles
   if (distance > 300) {
     for (let obstacle of obstacles) {
       obstacle.show();
 
       // remove obstacles that are out of the screen
-      if (obstacle.y < -1000) {
+      if (obstacle.y < -2000) {
         obstacles.splice(0, 1);
 
         // generate new obstacles
         let newObstacle = new Obstacle(
           obstacleImage,
           random(100, 500),
-          random(1200, 1500)
+          random(600, 2400)
         );
         obstacles.push(newObstacle);
+        console.log(obstacles);
       }
     }
   }
@@ -116,9 +122,9 @@ function draw() {
       rock.show();
 
       // remove rocks that are out of the screen
-      if (rock.y < -1000) {
+      if (rock.y < -2000) {
         rocks.splice(0, 1);
-        let newRock = new Rock(rockImage, random(100, 500), random(1200, 1500));
+        let newRock = new Rock(rockImage, random(100, 500), random(600, 2400));
         rocks.push(newRock);
       }
     }
@@ -129,26 +135,26 @@ function draw() {
     for (let fire of fires) {
       fire.show();
 
-      // remove rocks that are out of the screen
-      if (fire.y < -1000) {
+      // remove fires that are out of the screen
+      if (fire.y < -2000) {
         fires.splice(0, 1);
-        let newFire = new Fire(fireImage, random(100, 500), random(1200, 1500));
+        let newFire = new Fire(fireImage, random(100, 500), random(600, 2400));
         fires.push(newFire);
       }
     }
   }
 
-  //   draw the rainbow
+  //   draw the rainbows
   for (let rainbow of rainbows) {
     rainbow.show();
 
     // remove obstacles that are out of the screen
-    if (rainbow.y < -1000) {
+    if (rainbow.y < -2000) {
       rainbows.splice(0, 1);
       let newRainbow = new Rainbow(
         rainbowImage,
         random(100, 500),
-        random(600, 1500)
+        random(600, 2400)
       );
       rainbows.push(newRainbow);
     }
