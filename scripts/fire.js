@@ -1,4 +1,4 @@
-class Obstacle {
+class Fire {
   constructor(img, x, y) {
     this.img = img;
     this.x = x;
@@ -6,6 +6,6 @@ class Obstacle {
   }
 
   show() {
-    image(this.img, this.x, (this.y -= 7));
+    image(this.img, this.x, (this.y -= 10), 64, 64);
   }
 }

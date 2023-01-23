@@ -1,4 +1,4 @@
-class Obstacle {
+class Rock {
   constructor(img, x, y) {
     this.img = img;
     this.x = x;

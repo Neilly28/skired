@@ -1,4 +1,4 @@
-class Obstacle {
+class Rainbow {
   constructor(img, x, y) {
     this.img = img;
     this.x = x;

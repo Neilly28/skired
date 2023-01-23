@@ -10,12 +10,20 @@ class Player {
   }
 
   moveRight() {
-    this.x += 2;
-    image(skiRightImage, this.x, this.y);
+    this.x += 8;
+    this.img = skiRightImage;
   }
 
   moveLeft() {
-    this.x -= 2;
-    image(skiLeftImage, this.x, this.y);
+    this.x -= 8;
+    this.img = skiLeftImage;
+  }
+
+  moveDown() {
+    this.img = playerImage;
+  }
+
+  jump() {
+    this.img = skiJumpImage;
   }
 }
