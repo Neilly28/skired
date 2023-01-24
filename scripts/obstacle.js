@@ -6,6 +6,6 @@ class Obstacle {
   }
 
   show() {
-    image(this.img, this.x, (this.y -= 7));
+    image(this.img, this.x, (this.y -= 9));
   }
 }
