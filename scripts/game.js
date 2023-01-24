@@ -1,11 +1,18 @@
 console.log("hello from sketch!");
 
+// Speed of movement
+let speed = 2;
+
+let mode;
+// let isAlive = true;
+let isMoving = true;
 let wordPosY = 100;
 let signPosY = 400;
 let dudePosX = 0;
 let dudePosY = 0;
 let gondolaPosY = 700;
 let startPosY = 800;
+let yetiPosY = 200;
 let distance = 0;
 let message = "Distance travelled:";
 let meters = "meters";
@@ -13,8 +20,8 @@ let obstacles = [];
 let rocks = [];
 let fires = [];
 let rainbows = [];
-
-console.log(distance);
+let yetiX = 200;
+let yetiY = 0;
 
 function preload() {
   wordImage = loadImage("/images/wordart.png");
@@ -35,9 +42,8 @@ function preload() {
   ouchImage = loadImage("/images/ouch.png");
   rainbowImage = loadImage("/images/rainbow.png");
   fireImage = loadImage("/images/fire.gif");
+  yetiImage = loadImage("/images/yeti.png");
 }
-
-let mode;
 
 function setup() {
   mode = 0;
@@ -45,14 +51,13 @@ function setup() {
   let canvas = createCanvas(600, 600);
   canvas.parent("canvasForHTML");
 
-  if (frameCount % 90 === 0) {
-    distance += 100;
-  }
-
   imageMode(CENTER);
 
   //   spawn player
   player = new Player(playerImage);
+
+  //   spawn yeti
+  yeti = new Yeti(playerImage);
 
   //   spawn obstalce
   for (let i = 0; i < 20; i++) {
@@ -61,17 +66,19 @@ function setup() {
       random(100, 500),
       random(600, 2400)
     );
+    isMoving = true;
   }
-  console.log(obstacles);
 
   // spawn rocks
   for (let i = 0; i < 20; i++) {
     rocks[i] = new Rock(rockImage, random(100, 500), random(600, 2400));
+    isMoving = true;
   }
 
   // spawn fires
   for (let i = 0; i < 25; i++) {
     fires[i] = new Fire(fireImage, random(100, 500), random(600, 2400));
+    isMoving = true;
   }
 
   //   spawn rainbows
@@ -81,6 +88,7 @@ function setup() {
       random(300, 500),
       random(600, 2400)
     );
+    isMoving = true;
   }
 }
 
@@ -98,7 +106,6 @@ function draw() {
     image(dudeImage, dudePosX, dudePosY, 20, 29);
     image(playerStandImage, player.x, player.y);
     image(gondolaImage, 400, gondolaPosY, 26, 32);
-
     dudePosX += 3;
     dudePosY += 5;
     gondolaPosY -= 1;
@@ -112,13 +119,13 @@ function draw() {
     strokeWeight(4);
 
     // draw ui
-    text(message, 15, 25);
-    text(distance, 120, 25);
-    text(meters, 150, 25);
-    // fill("white");
-    if (frameCount % 60 === 0) {
-      distance += 1;
+    text(message, 400, 30);
+    text(distance, 500, 30);
+    text(meters, 520, 30);
+    if (frameCount % 90 === 0 && isMoving == true) {
+      distance += 10;
     }
+    console.log(distance);
 
     // draw environments
     image(wordImage, 200, wordPosY, 308, 157);
@@ -129,6 +136,7 @@ function draw() {
     image(startLeftImage, 150, startPosY, 42, 27);
     image(startRightImage, 450, startPosY, 42, 27);
     image(gondolaImage, 400, gondolaPosY, 26, 32);
+    image(yetiImage, yetiX, yetiY, 20, 20);
 
     wordPosY -= 3;
     signPosY -= 3;
@@ -136,6 +144,22 @@ function draw() {
     dudePosY += 2;
     startPosY -= 3;
     gondolaPosY -= 5;
+
+    // Calculate the distance between the moving element and the target position
+    let distanceY = player.y - yetiY;
+    console.log(distanceY);
+    let distanceX = player.x - yetiX;
+    console.log(distanceX);
+
+    // Normalize the  sdistance vector
+    let d = sqrt(distanceX * distanceX + distanceY * distanceY);
+    distanceX = distanceX / d;
+    distanceY = distanceY / d;
+    console.log(d, distanceX, distanceY);
+
+    // Update the position of the moving element
+    yetiX += distanceX * speed;
+    yetiY += distanceY * speed;
 
     // draw player
     player.show();
@@ -145,14 +169,10 @@ function draw() {
     } else if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
       player.moveLeft();
     }
-
-    if (player.x < -50 || player.x > 650) {
-      text("you went off the screen and died", 300, 300);
-      noLoop();
-    }
+    console.log(player);
 
     //   draw the obstacles
-    if (distance > 400) {
+    if (distance > 40) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
@@ -167,13 +187,13 @@ function draw() {
             random(600, 2400)
           );
           obstacles.push(newObstacle);
-          console.log(obstacles);
+          isMoving = true;
         }
       }
     }
 
     //   draw the rocks
-    if (distance > 2000) {
+    if (distance > 200) {
       for (let rock of rocks) {
         rock.show();
 
@@ -186,12 +206,13 @@ function draw() {
             random(600, 2400)
           );
           rocks.push(newRock);
+          isMoving = true;
         }
       }
     }
 
     // draw the fires
-    if (distance > 5000) {
+    if (distance > 400) {
       for (let fire of fires) {
         fire.show();
 
@@ -204,12 +225,13 @@ function draw() {
             random(600, 2400)
           );
           fires.push(newFire);
+          isMoving = true;
         }
       }
     }
 
     //   draw the rainbows
-    if (distance > 500) {
+    if (distance > 50) {
       for (let rainbow of rainbows) {
         rainbow.show();
 
@@ -222,6 +244,7 @@ function draw() {
             random(600, 2400)
           );
           rainbows.push(newRainbow);
+          isMoving = true;
         }
       }
     }
@@ -243,6 +266,7 @@ function draw() {
               rainbows.forEach((rainbow) => (rainbow.y += 7));
               // show ouch image
               image(ouchImage, player.x, player.y);
+              isMoving = false;
             }
             if (dist(player.x, player.y, rainbow.x, rainbow.y) < 15) {
               // increase obstacle velocity

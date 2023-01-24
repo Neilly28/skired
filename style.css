@@ -108,7 +108,8 @@ h1.title {
   justify-content: space-between;
 }
 
-.taskbar-button {
+.taskbar-start,
+.taskbar-time {
   /*position:absolute;
     right:3px;
     top:3px;*/
