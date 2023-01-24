@@ -14,8 +14,7 @@ console.log(timeDisplay);
 timeDisplay.innerText = time;
 
 // close canvas
+// const x = document.querySelector(".x");
+// console.log(x);
 
-const x = document.querySelector(".x");
-console.log(x);
-
-x.addEventListener("click", closeCanvas());
+// x.addEventListener("click", closeCanvas());

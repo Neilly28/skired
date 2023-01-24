@@ -1,29 +1,22 @@
 class Player {
   constructor(img) {
-    this.x = width / 2;
-    this.y = height / 4;
-    this.img = img;
+    this.x = 200;
+    this.y = 200;
+    this.img = skiDownImage;
+    this.width = 17;
+    this.height = 34;
+    this.xdir = 0;
   }
 
   show() {
-    image(this.img, this.x, this.y);
+    image(this.img, this.x, this.y, this.width, this.height);
   }
 
-  moveRight() {
-    this.x += 10;
-    this.img = skiRightImage;
+  move() {
+    this.x += this.xdir * 10;
   }
 
-  moveLeft() {
-    this.x -= 10;
-    this.img = skiLeftImage;
-  }
-
-  moveDown() {
-    this.img = playerImage;
-  }
-
-  jump() {
-    this.img = skiJumpImage;
+  setDir(dir) {
+    this.xdir = dir;
   }
 }

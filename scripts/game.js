@@ -39,10 +39,12 @@ function preload() {
   rockImage = loadImage("/images/rock.png");
   ouchImage = loadImage("/images/ouch.png");
   fireImage = loadImage("/images/fire.gif");
+  fireBallImage = loadImage("/images/fireball.gif");
   yetiImage = loadImage("/images/yeti.png");
   finishLeftImage = loadImage("/images/finishleft.png");
   finishRightImage = loadImage("/images/finishright.png");
   hugImage = loadImage("/images/hug.png");
+  skiDownImage = loadImage("/images/skidown.png");
 }
 
 function setup() {
@@ -64,20 +66,20 @@ function setup() {
     obstacles[i] = new Obstacle(
       obstacleImage,
       random(0, 600),
-      random(600, 1200)
+      random(600, 2400)
     );
     isMoving = true;
   }
 
   // spawn rocks
   for (let i = 0; i < 25; i++) {
-    rocks[i] = new Rock(rockImage, random(0, 600), random(600, 1200));
+    rocks[i] = new Rock(rockImage, random(0, 600), random(600, 2400));
     isMoving = true;
   }
 
   // spawn fires
   for (let i = 0; i < 25; i++) {
-    fires[i] = new Fire(fireImage, random(0, 600), random(600, 1200));
+    fires[i] = new Fire(fireImage, random(0, 600), random(600, 2400));
     isMoving = true;
   }
 }
@@ -137,13 +139,7 @@ function draw() {
 
     // draw player
     player.show();
-
-    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-      player.moveRight();
-    } else if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-      player.moveLeft();
-    }
-    console.log(player);
+    player.move();
 
     //   draw the obstacles
     if (distance > 40 && distance < 500) {
@@ -151,14 +147,14 @@ function draw() {
         obstacle.show();
 
         // remove obstacles that are out of the screen
-        if (obstacle.y < -2000 && distance < 480) {
+        if (obstacle.y < -2000 && distance < 490) {
           obstacles.splice(0, 1);
 
           // generate new obstacles
           let newObstacle = new Obstacle(
             obstacleImage,
             random(0, 600),
-            random(600, 1200)
+            random(600, 2400)
           );
           obstacles.push(newObstacle);
           isMoving = true;
@@ -172,9 +168,9 @@ function draw() {
         rock.show();
 
         // remove rocks that are out of the screen
-        if (rock.y < -2000 && distance < 480) {
+        if (rock.y < -2000 && distance < 490) {
           rocks.splice(0, 1);
-          let newRock = new Rock(rockImage, random(0, 600), random(600, 1200));
+          let newRock = new Rock(rockImage, random(0, 600), random(600, 2400));
           rocks.push(newRock);
           isMoving = true;
         }
@@ -187,9 +183,9 @@ function draw() {
         fire.show();
 
         // remove fires that are out of the screen
-        if (fire.y < -2000 && distance < 480) {
+        if (fire.y < -2000 && distance < 490) {
           fires.splice(0, 1);
-          let newFire = new Fire(fireImage, random(0, 600), random(600, 1200));
+          let newFire = new Fire(fireImage, random(0, 600), random(600, 2400));
 
           fires.push(newFire);
           isMoving = true;
@@ -207,9 +203,9 @@ function draw() {
             dist(player.x, player.y, fire.x, fire.y) < 25
           ) {
             // stop obstacle velocity
-            obstacles.forEach((obstacle) => (obstacle.y += 9));
-            rocks.forEach((rock) => (rock.y += 9));
-            fires.forEach((fire) => (fire.y += 9));
+            obstacles.forEach((obstacle) => (obstacle.y += 7));
+            rocks.forEach((rock) => (rock.y += 7));
+            fires.forEach((fire) => (fire.y += 7));
 
             // show ouch image
             image(ouchImage, player.x, player.y);
@@ -221,12 +217,12 @@ function draw() {
     console.log(obstacles, rocks, fires);
 
     // draw finish
-    if (distance >= 480) {
+    if (distance >= 490) {
       image(finishLeftImage, 150, finishPosY, 50, 29);
       image(finishRightImage, 450, finishPosY, 50, 29);
       isFinish = true;
       if (finishPosY > 100) {
-        finishPosY -= 3;
+        finishPosY -= 2;
       }
     }
 
@@ -258,8 +254,19 @@ function draw() {
   }
 }
 
+// key event handlers
 function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     mode = 1;
+  } else if (keyCode === RIGHT_ARROW) {
+    player.setDir(1);
+  } else if (keyCode === LEFT_ARROW) {
+    player.setDir(-1);
+  } else if (keyCode === ESCAPE) {
+    remove();
   }
+}
+
+function keyReleased() {
+  player.setDir(0);
 }

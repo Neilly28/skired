@@ -6,6 +6,6 @@ class Fire {
   }
 
   show() {
-    image(this.img, this.x, (this.y -= 9), 64, 64);
+    image(this.img, this.x, (this.y -= 3), 64, 64);
   }
 }

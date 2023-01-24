@@ -6,6 +6,6 @@ class Rock {
   }
 
   show() {
-    image(this.img, this.x, (this.y -= 9));
+    image(this.img, this.x, (this.y -= 7));
   }
 }
