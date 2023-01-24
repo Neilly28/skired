@@ -1,6 +1,11 @@
 console.log("hello from sketch!");
 
-let posY = 100;
+let wordPosY = 100;
+let signPosY = 400;
+let dudePosX = 0;
+let dudePosY = 0;
+let gondolaPosY = 700;
+let startPosY = 800;
 let distance = 0;
 let message = "Distance travelled:";
 let meters = "meters";
@@ -13,7 +18,14 @@ console.log(distance);
 
 function preload() {
   wordImage = loadImage("/images/wordart.png");
-  titleImage = loadImage("/images/skititle.png");
+  centerImage = loadImage("/images/freestyle.png");
+  leftImage = loadImage("/images/slalom.png");
+  rightImage = loadImage("/images/treeslalom.png");
+  dudeImage = loadImage("/images/dude.png");
+  gondolaImage = loadImage("/images/gondola.png");
+  startLeftImage = loadImage("/images/startleft.png");
+  startRightImage = loadImage("/images/startright.png");
+  playerStandImage = loadImage("/images/skititle.png");
   playerImage = loadImage("/images/skier.png");
   skiRightImage = loadImage("/images/skiright.png");
   skiLeftImage = loadImage("/images/skileft.png");
@@ -80,7 +92,16 @@ function draw() {
     rect(0, 0, 600, 600);
     strokeWeight(4);
     image(wordImage, 200, 100, 308, 157);
-    image(titleImage, player.x, player.y);
+    image(leftImage, 150, 400, 40, 36);
+    image(centerImage, 300, 400, 40, 35);
+    image(rightImage, 450, 400, 44, 36);
+    image(dudeImage, dudePosX, dudePosY, 20, 29);
+    image(playerStandImage, player.x, player.y);
+    image(gondolaImage, 400, gondolaPosY, 26, 32);
+
+    dudePosX += 3;
+    dudePosY += 5;
+    gondolaPosY -= 1;
   }
 
   // start game
@@ -94,12 +115,27 @@ function draw() {
     text(message, 15, 25);
     text(distance, 120, 25);
     text(meters, 150, 25);
-    fill("white");
-    if (frameCount % 90 === 0) {
-      distance += 100;
+    // fill("white");
+    if (frameCount % 60 === 0) {
+      distance += 1;
     }
-    image(wordImage, 200, posY, 308, 157);
-    posY -= 1;
+
+    // draw environments
+    image(wordImage, 200, wordPosY, 308, 157);
+    image(leftImage, 150, signPosY, 40, 36);
+    image(centerImage, 300, signPosY, 40, 35);
+    image(rightImage, 450, signPosY, 44, 36);
+    image(dudeImage, dudePosX, dudePosY, 20, 29);
+    image(startLeftImage, 150, startPosY, 42, 27);
+    image(startRightImage, 450, startPosY, 42, 27);
+    image(gondolaImage, 400, gondolaPosY, 26, 32);
+
+    wordPosY -= 3;
+    signPosY -= 3;
+    dudePosX += 2;
+    dudePosY += 2;
+    startPosY -= 3;
+    gondolaPosY -= 5;
 
     // draw player
     player.show();
@@ -116,7 +152,7 @@ function draw() {
     }
 
     //   draw the obstacles
-    if (distance > 300) {
+    if (distance > 400) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
@@ -173,18 +209,20 @@ function draw() {
     }
 
     //   draw the rainbows
-    for (let rainbow of rainbows) {
-      rainbow.show();
+    if (distance > 500) {
+      for (let rainbow of rainbows) {
+        rainbow.show();
 
-      // remove obstacles that are out of the screen
-      if (rainbow.y < -2000) {
-        rainbows.splice(0, 1);
-        let newRainbow = new Rainbow(
-          rainbowImage,
-          random(100, 500),
-          random(600, 2400)
-        );
-        rainbows.push(newRainbow);
+        // remove obstacles that are out of the screen
+        if (rainbow.y < -2000) {
+          rainbows.splice(0, 1);
+          let newRainbow = new Rainbow(
+            rainbowImage,
+            random(100, 500),
+            random(600, 2400)
+          );
+          rainbows.push(newRainbow);
+        }
       }
     }
 
