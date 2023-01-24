@@ -3,6 +3,7 @@ console.log("hello from sketch!");
 // global variables
 let mode;
 let isMoving = true;
+let isFinish = false;
 let wordPosY = 100;
 let signPosY = 400;
 let dudePosX = 0;
@@ -16,7 +17,7 @@ let obstacles = [];
 let rocks = [];
 let fires = [];
 let yetiPosX = 200;
-let yetiPosY = 0;
+let yetiPosY = -20;
 let yetiSpeed = 2;
 let finishPosY = 800;
 
@@ -41,6 +42,7 @@ function preload() {
   yetiImage = loadImage("/images/yeti.png");
   finishLeftImage = loadImage("/images/finishleft.png");
   finishRightImage = loadImage("/images/finishright.png");
+  hugImage = loadImage("/images/hug.png");
 }
 
 function setup() {
@@ -55,27 +57,27 @@ function setup() {
   player = new Player(playerImage);
 
   //   spawn yeti
-  yeti = new Yeti(playerImage);
+  yeti = new Yeti(yetiImage);
 
   //   spawn obstalce
   for (let i = 0; i < 25; i++) {
     obstacles[i] = new Obstacle(
       obstacleImage,
-      random(100, 500),
-      random(600, 2400)
+      random(0, 600),
+      random(600, 1200)
     );
     isMoving = true;
   }
 
   // spawn rocks
   for (let i = 0; i < 25; i++) {
-    rocks[i] = new Rock(rockImage, random(100, 500), random(600, 2400));
+    rocks[i] = new Rock(rockImage, random(0, 600), random(600, 1200));
     isMoving = true;
   }
 
   // spawn fires
   for (let i = 0; i < 25; i++) {
-    fires[i] = new Fire(fireImage, random(100, 500), random(600, 2400));
+    fires[i] = new Fire(fireImage, random(0, 600), random(600, 1200));
     isMoving = true;
   }
 }
@@ -155,8 +157,8 @@ function draw() {
           // generate new obstacles
           let newObstacle = new Obstacle(
             obstacleImage,
-            random(100, 500),
-            random(600, 1800)
+            random(0, 600),
+            random(600, 1200)
           );
           obstacles.push(newObstacle);
           isMoving = true;
@@ -172,11 +174,7 @@ function draw() {
         // remove rocks that are out of the screen
         if (rock.y < -2000 && distance < 480) {
           rocks.splice(0, 1);
-          let newRock = new Rock(
-            rockImage,
-            random(100, 500),
-            random(600, 1800)
-          );
+          let newRock = new Rock(rockImage, random(0, 600), random(600, 1200));
           rocks.push(newRock);
           isMoving = true;
         }
@@ -184,18 +182,14 @@ function draw() {
     }
 
     // draw the fires
-    if (distance > 250 && distance < 500) {
+    if (distance > 200 && distance < 500) {
       for (let fire of fires) {
         fire.show();
 
         // remove fires that are out of the screen
         if (fire.y < -2000 && distance < 480) {
           fires.splice(0, 1);
-          let newFire = new Fire(
-            fireImage,
-            random(100, 500),
-            random(600, 1800)
-          );
+          let newFire = new Fire(fireImage, random(0, 600), random(600, 1200));
 
           fires.push(newFire);
           isMoving = true;
@@ -213,9 +207,9 @@ function draw() {
             dist(player.x, player.y, fire.x, fire.y) < 25
           ) {
             // stop obstacle velocity
-            obstacles.forEach((obstacle) => (obstacle.y += 7));
-            rocks.forEach((rock) => (rock.y += 7));
-            fires.forEach((fire) => (fire.y += 7));
+            obstacles.forEach((obstacle) => (obstacle.y += 9));
+            rocks.forEach((rock) => (rock.y += 9));
+            fires.forEach((fire) => (fire.y += 9));
 
             // show ouch image
             image(ouchImage, player.x, player.y);
@@ -224,19 +218,20 @@ function draw() {
         }
       }
     }
+    console.log(obstacles, rocks, fires);
 
     // draw finish
-    if (distance >= 500) {
+    if (distance >= 480) {
       image(finishLeftImage, 150, finishPosY, 50, 29);
       image(finishRightImage, 450, finishPosY, 50, 29);
-
+      isFinish = true;
       if (finishPosY > 100) {
         finishPosY -= 3;
       }
     }
 
     // draw yeti
-    if (distance >= 530) {
+    if (isFinish == true) {
       // Calculate the distance between the moving element and the target position
       let distanceY = player.y - yetiPosY;
       console.log(distanceY);
@@ -253,6 +248,13 @@ function draw() {
       yetiPosX += distanceX * yetiSpeed;
       yetiPosY += distanceY * yetiSpeed;
     }
+  }
+
+  //   check for yeti collision
+  if (dist(player.x, player.y, yeti.x, yeti.y) < 25) {
+    // show hug image
+    image(hugImage, player.x, player.y);
+    isMoving = false;
   }
 }
 

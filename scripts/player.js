@@ -10,12 +10,12 @@ class Player {
   }
 
   moveRight() {
-    this.x += 8;
+    this.x += 10;
     this.img = skiRightImage;
   }
 
   moveLeft() {
-    this.x -= 8;
+    this.x -= 10;
     this.img = skiLeftImage;
   }
 

@@ -12,3 +12,10 @@ console.log(time);
 let timeDisplay = document.querySelector(".taskbar-time");
 console.log(timeDisplay);
 timeDisplay.innerText = time;
+
+// close canvas
+
+const x = document.querySelector(".x");
+console.log(x);
+
+x.addEventListener("click", closeCanvas());
