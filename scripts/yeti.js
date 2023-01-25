@@ -6,6 +6,6 @@ class Yeti {
   }
 
   show() {
-    image(this.img, this.x, (this.y += 7));
+    image(this.img, this.x, (this.y += 3));
   }
 }

@@ -1,6 +1,7 @@
 console.log("hello from sketch!");
 
 // global variables
+let button;
 let mode;
 let isMoving = true;
 let isFinish = false;
@@ -12,15 +13,17 @@ let gondolaPosY = 700;
 let startPosY = 800;
 let distance = 0;
 let message = "Distance:";
-let meters = "meters";
+let meters = "m";
 let obstacles = [];
 let rocks = [];
 let fires = [];
 let ghosts = [];
 let yetiPosX = 200;
-let yetiPosY = -20;
+let yetiPosY = -200;
 let yetiSpeed = 2;
 let finishPosY = 800;
+let speedPosY = 0;
+console.log(speedPosY);
 
 function preload() {
   wordImage = loadImage("/images/wordart.png");
@@ -109,12 +112,6 @@ function draw() {
     dudePosX += 3;
     dudePosY += 5;
     gondolaPosY -= 1;
-
-    // draw ui
-    fill(255, 255, 255);
-    strokeWeight(1);
-    stroke(0);
-    rect(450, 0, 150, 55);
   }
 
   // start game
@@ -148,18 +145,19 @@ function draw() {
     dudePosY += 2;
     startPosY -= 3;
     gondolaPosY -= 5;
+    speedPosY += 0.1;
 
     // draw player
     player.show();
     player.move();
 
     //   draw the obstacles
-    if (distance > 30 && distance < 520) {
+    if (distance > 30 && distance < 550) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
         // remove obstacles that are out of the screen
-        if (obstacle.y < -2000 && distance < 475) {
+        if (obstacle.y < -2000 && distance < 1000) {
           obstacles.splice(0, 1);
 
           // generate new obstacles
@@ -175,12 +173,12 @@ function draw() {
     }
 
     //   draw the rocks
-    if (distance > 150 && distance < 520) {
+    if (distance > 150 && distance < 490) {
       for (let rock of rocks) {
         rock.show();
 
         // remove rocks that are out of the screen
-        if (rock.y < -2000 && distance < 475) {
+        if (rock.y < -2000 && distance < 1000) {
           rocks.splice(0, 1);
           let newRock = new Rock(rockImage, random(0, 600), random(600, 2400));
           rocks.push(newRock);
@@ -190,12 +188,12 @@ function draw() {
     }
 
     // draw the fires
-    if (distance > 200 && distance < 520) {
+    if (distance > 300 && distance < 520) {
       for (let fire of fires) {
         fire.show();
 
         // remove fires that are out of the screen
-        if (fire.y < -2000 && distance < 475) {
+        if (fire.y < -2000 && distance < 1000) {
           fires.splice(0, 1);
           let newFire = new Fire(fireImage, random(0, 600), random(600, 2400));
 
@@ -206,12 +204,12 @@ function draw() {
     }
 
     // draw the ghosts
-    if (distance > 400 && distance < 520) {
+    if (distance > 375 && distance < 490) {
       for (let ghost of ghosts) {
         ghost.show();
 
-        // remove fires that are out of the screen
-        if (ghost.y < -2000 && distance < 475) {
+        // remove ghosts that are out of the screen
+        if (ghost.y < -2000 && distance < 1000) {
           ghosts.splice(0, 1);
           let newGhost = new Ghost(
             ghostImage,
@@ -238,6 +236,7 @@ function draw() {
             obstacles.forEach((obstacle) => (obstacle.y += 7));
             rocks.forEach((rock) => (rock.y += 7));
             fires.forEach((fire) => (fire.y += 7));
+            speedPosY = 0;
 
             // show ouch image
             image(ouchImage, player.x, player.y);
@@ -247,16 +246,6 @@ function draw() {
       }
     }
     // console.log(obstacles, rocks, fires);
-
-    // draw finish
-    if (distance >= 490) {
-      image(finishLeftImage, 150, finishPosY, 50, 29);
-      image(finishRightImage, 450, finishPosY, 50, 29);
-      isFinish = true;
-      if (finishPosY > 100) {
-        finishPosY -= 2;
-      }
-    }
 
     // draw yeti
     if (isFinish == true) {
@@ -278,13 +267,6 @@ function draw() {
     }
   }
 
-  //   check for yeti collision
-  if (dist(player.x, player.y, yeti.x, yeti.y) < 25) {
-    // show hug image
-    image(hugImage, player.x, player.y);
-    isMoving = false;
-  }
-
   // draw ui
   fill(255, 255, 255);
   strokeWeight(1);
@@ -292,16 +274,29 @@ function draw() {
   rect(450, 0, 150, 55);
   fill(0);
   textSize(14);
-  // textFont("bold");
-  text(message, 455, 20);
-  text(distance, 550, 20);
-  // for (let obstacle of obstacles) {
-  //   let currentSpeed = obstacle.y;
-  //   return currentSpeed;
-  // }
+  text("Distance:", 455, 20);
+  text(distance + "m", 550, 20);
   text("Speed:", 455, 40);
-  // text(currentSpeed, 550, 40);
-  text(yeti.y, 455, 40);
+  text(Math.trunc(speedPosY) + "m/s", 550, 40);
+
+  // draw finish
+  if (distance >= 500) {
+    image(finishLeftImage, 150, finishPosY, 50, 29);
+    image(finishRightImage, 450, finishPosY, 50, 29);
+    isFinish = true;
+    if (finishPosY > 100) {
+      finishPosY -= 3;
+    } else {
+      image(hugImage, player.x, player.y);
+      console.log("yeti collision");
+      text("GAME OVER? Hugged by Yeti ❤️", 300, 400);
+
+      // Create the button
+      button = createButton("Try Again");
+      button.position(800, 500);
+      noLoop();
+    }
+  }
 }
 
 // key event handlers
