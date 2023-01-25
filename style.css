@@ -75,6 +75,7 @@ h1.title {
   padding-bottom: 50px;
   position: relative;
   height: 800px;
+  position: relative;
 }
 
 .desktop-box {
@@ -133,4 +134,32 @@ h1.title {
 
 #canvasForHTML {
   /* border: 1px solid black; */
+}
+
+.ie {
+  width: 32px;
+  /* height: 32px; */
+}
+
+.windows {
+  position: absolute;
+  left: 100px;
+  /* display: none; */
+}
+
+.hidden {
+  display: none;
+}
+
+.start {
+  /* position: relative; */
+}
+
+.start-img {
+  margin-top: 488px;
+  margin-left: -100px;
+  width: 60%;
+  /* position: absolute; */
+  /* top: 50px; */
+  /* bottom: 100px; */
 }

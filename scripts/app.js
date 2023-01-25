@@ -18,3 +18,31 @@ timeDisplay.innerText = time;
 // console.log(x);
 
 // x.addEventListener("click", closeCanvas());
+
+const myComputerImg = document.querySelector(".mycomputer-img");
+const recycleBinImg = document.querySelector(".recyclebin-img");
+const ieImg = document.querySelector(".ie-img");
+const startImg = document.querySelector(".start-img");
+
+const showMy = function () {
+  myComputerImg.classList.toggle("hidden");
+};
+const showRecycle = function () {
+  recycleBinImg.classList.toggle("hidden");
+};
+const showIe = function () {
+  ieImg.classList.toggle("hidden");
+};
+const showStart = function () {
+  startImg.classList.toggle("hidden");
+};
+
+const myComputerBtn = document.querySelector(".desktop-icon.mycomputer");
+const myRecycleBtn = document.querySelector(".desktop-icon.recyclebin");
+const myIeBtn = document.querySelector(".desktop-icon.ie");
+const startBtn = document.querySelector(".taskbar-start");
+
+myComputerBtn.addEventListener("click", showMy);
+myRecycleBtn.addEventListener("click", showRecycle);
+myIeBtn.addEventListener("click", showIe);
+startBtn.addEventListener("click", showStart);
