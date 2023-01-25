@@ -16,6 +16,7 @@ let meters = "meters";
 let obstacles = [];
 let rocks = [];
 let fires = [];
+let ghosts = [];
 let yetiPosX = 200;
 let yetiPosY = -20;
 let yetiSpeed = 2;
@@ -45,6 +46,7 @@ function preload() {
   finishRightImage = loadImage("/images/finishright.png");
   hugImage = loadImage("/images/hug.png");
   skiDownImage = loadImage("/images/skidown.png");
+  ghostImage = loadImage("/images/ghost.gif");
 }
 
 function setup() {
@@ -82,6 +84,12 @@ function setup() {
     fires[i] = new Fire(fireImage, random(0, 600), random(600, 2400));
     isMoving = true;
   }
+
+  // spawn ghosts
+  for (let i = 0; i < 25; i++) {
+    ghosts[i] = new Ghost(ghostImage, random(0, 600), random(600, 2400));
+    isMoving = true;
+  }
 }
 
 function draw() {
@@ -117,7 +125,7 @@ function draw() {
     if (frameCount % 90 === 0 && isMoving == true) {
       distance += 10;
     }
-    console.log(distance);
+    // console.log(distance);
 
     // draw environments
     image(wordImage, 200, wordPosY, 308, 157);
@@ -193,6 +201,26 @@ function draw() {
       }
     }
 
+    // draw the ghosts
+    if (distance > 300 && distance < 520) {
+      for (let ghost of ghosts) {
+        ghost.show();
+
+        // remove fires that are out of the screen
+        if (ghost.y < -2000 && distance < 475) {
+          ghosts.splice(0, 1);
+          let newGhost = new Ghost(
+            ghostImage,
+            random(300, 600),
+            random(600, 2400)
+          );
+
+          ghosts.push(newGhost);
+          isMoving = true;
+        }
+      }
+    }
+
     //   check for obstacle collision
     for (let obstacle of obstacles) {
       for (let rock of rocks) {
@@ -214,7 +242,7 @@ function draw() {
         }
       }
     }
-    console.log(obstacles, rocks, fires);
+    // console.log(obstacles, rocks, fires);
 
     // draw finish
     if (distance >= 490) {
@@ -230,15 +258,15 @@ function draw() {
     if (isFinish == true) {
       // Calculate the distance between the moving element and the target position
       let distanceY = player.y - yetiPosY;
-      console.log(distanceY);
+      // console.log(distanceY);
       let distanceX = player.x - yetiPosX;
-      console.log(distanceX);
+      // console.log(distanceX);
 
       // Normalize the distance vector
       let d = sqrt(distanceX * distanceX + distanceY * distanceY);
       distanceX = distanceX / d;
       distanceY = distanceY / d;
-      console.log(d, distanceX, distanceY);
+      // console.log(d, distanceX, distanceY);
 
       // Update the position of the moving element
       yetiPosX += distanceX * yetiSpeed;
