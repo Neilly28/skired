@@ -11,7 +11,7 @@ let dudePosY = 0;
 let gondolaPosY = 700;
 let startPosY = 800;
 let distance = 0;
-let message = "Distance travelled:";
+let message = "Distance:";
 let meters = "meters";
 let obstacles = [];
 let rocks = [];
@@ -97,8 +97,8 @@ function draw() {
   clear();
   if (mode == 0) {
     background("#fff");
-    rect(0, 0, 600, 600);
-    strokeWeight(4);
+    // rect(0, 0, 600, 600);
+    // strokeWeight(4);
     image(wordImage, 200, 100, 308, 157);
     image(leftImage, 150, 400, 40, 36);
     image(centerImage, 300, 400, 40, 35);
@@ -109,22 +109,26 @@ function draw() {
     dudePosX += 3;
     dudePosY += 5;
     gondolaPosY -= 1;
+
+    // draw ui
+    fill(255, 255, 255);
+    strokeWeight(1);
+    stroke(0);
+    rect(450, 0, 150, 55);
   }
 
   // start game
   if (mode == 1) {
     // draw background
+
     background("#fff");
-    rect(0, 0, 600, 600);
-    strokeWeight(4);
 
     // draw ui
-    text(message, 400, 30);
-    text(distance, 500, 30);
-    text(meters, 520, 30);
+
     if (frameCount % 90 === 0 && isMoving == true) {
       distance += 10;
     }
+
     // console.log(distance);
 
     // draw environments
@@ -150,7 +154,7 @@ function draw() {
     player.move();
 
     //   draw the obstacles
-    if (distance > 20 && distance < 520) {
+    if (distance > 30 && distance < 520) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
@@ -202,7 +206,7 @@ function draw() {
     }
 
     // draw the ghosts
-    if (distance > 300 && distance < 520) {
+    if (distance > 400 && distance < 520) {
       for (let ghost of ghosts) {
         ghost.show();
 
@@ -280,6 +284,24 @@ function draw() {
     image(hugImage, player.x, player.y);
     isMoving = false;
   }
+
+  // draw ui
+  fill(255, 255, 255);
+  strokeWeight(1);
+  stroke(0);
+  rect(450, 0, 150, 55);
+  fill(0);
+  textSize(14);
+  // textFont("bold");
+  text(message, 455, 20);
+  text(distance, 550, 20);
+  // for (let obstacle of obstacles) {
+  //   let currentSpeed = obstacle.y;
+  //   return currentSpeed;
+  // }
+  text("Speed:", 455, 40);
+  // text(currentSpeed, 550, 40);
+  text(yeti.y, 455, 40);
 }
 
 // key event handlers
