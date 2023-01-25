@@ -173,7 +173,7 @@ function draw() {
     }
 
     //   draw the rocks
-    if (distance > 150 && distance < 490) {
+    if (distance > 150 && distance < 500) {
       for (let rock of rocks) {
         rock.show();
 
@@ -290,10 +290,7 @@ function draw() {
       image(hugImage, player.x, player.y);
       console.log("yeti collision");
       text("GAME OVER? Hugged by Yeti ❤️", 300, 400);
-
-      // Create the button
-      button = createButton("Try Again");
-      button.position(800, 500);
+      text("Hit Esc or R to play again", 300, 500);
       noLoop();
     }
   }
@@ -307,8 +304,6 @@ function keyPressed() {
     player.setDir(1);
   } else if (keyCode === LEFT_ARROW) {
     player.setDir(-1);
-  } else if (keyCode === ESCAPE) {
-    remove();
   }
 }
 

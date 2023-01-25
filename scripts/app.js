@@ -1,5 +1,17 @@
 console.log("hello from app js");
 
+// reset button
+function refreshPage() {
+  window.location.reload();
+}
+document.querySelector(".x").addEventListener("click", refreshPage);
+
+document.addEventListener("keydown", function (event) {
+  if (event.keyCode === 27 || event.keyCode === 82) {
+    refreshPage();
+  }
+});
+
 // dynamic taskbar time
 let date = new Date();
 console.log(date);
