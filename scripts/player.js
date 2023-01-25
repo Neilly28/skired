@@ -1,7 +1,7 @@
 class Player {
   constructor(img) {
-    this.x = 200;
-    this.y = 200;
+    this.x = 300;
+    this.y = 250;
     this.img = skiDownImage;
     this.width = 17;
     this.height = 34;

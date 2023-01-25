@@ -142,12 +142,12 @@ function draw() {
     player.move();
 
     //   draw the obstacles
-    if (distance > 40 && distance < 500) {
+    if (distance > 20 && distance < 520) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
         // remove obstacles that are out of the screen
-        if (obstacle.y < -2000 && distance < 490) {
+        if (obstacle.y < -2000 && distance < 475) {
           obstacles.splice(0, 1);
 
           // generate new obstacles
@@ -163,12 +163,12 @@ function draw() {
     }
 
     //   draw the rocks
-    if (distance > 150 && distance < 500) {
+    if (distance > 150 && distance < 520) {
       for (let rock of rocks) {
         rock.show();
 
         // remove rocks that are out of the screen
-        if (rock.y < -2000 && distance < 490) {
+        if (rock.y < -2000 && distance < 475) {
           rocks.splice(0, 1);
           let newRock = new Rock(rockImage, random(0, 600), random(600, 2400));
           rocks.push(newRock);
@@ -178,12 +178,12 @@ function draw() {
     }
 
     // draw the fires
-    if (distance > 200 && distance < 500) {
+    if (distance > 200 && distance < 520) {
       for (let fire of fires) {
         fire.show();
 
         // remove fires that are out of the screen
-        if (fire.y < -2000 && distance < 490) {
+        if (fire.y < -2000 && distance < 475) {
           fires.splice(0, 1);
           let newFire = new Fire(fireImage, random(0, 600), random(600, 2400));
 
