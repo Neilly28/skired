@@ -13,7 +13,7 @@ let dudePosX = 0;
 let dudePosY = 0;
 let gondolaPosY = 700;
 let instructionsPosY = 220;
-let startPosY = 800;
+let startPosY = 1250;
 let distance = 0;
 let currentTime = 0;
 let best = 0;
@@ -150,7 +150,7 @@ function draw() {
     signPosY -= 3;
     dudePosX += 2;
     dudePosY += 2;
-    startPosY -= 3;
+    startPosY -= 5;
     gondolaPosY -= 5;
     speedPosY += 0.1;
     instructionsPosY -= 3;
@@ -158,6 +158,20 @@ function draw() {
     // draw player
     player.show();
     player.move();
+
+    console.log(player.x);
+
+    // set boundaries
+    if (player.x >= 620 || player.x <= -20) {
+      bummer.play();
+
+      // display game over
+      text("GAME OVER", 250, 300);
+      text("You feel off a cliff and died.", 210, 340);
+      text("Hit Enter or R to play again :)", 205, 440);
+
+      noLoop();
+    }
 
     //   draw the obstacles
     if (distance > 25 && distance < 550) {
@@ -183,7 +197,7 @@ function draw() {
     }
 
     //   draw the rocks
-    if (distance > 150 && distance < 500) {
+    if (distance > 150 && distance < 520) {
       for (let rock of rocks) {
         rock.show();
 
@@ -200,7 +214,7 @@ function draw() {
     }
 
     // draw the fires
-    if (distance > 300 && distance < 520) {
+    if (distance > 250 && distance < 520) {
       for (let fire of fires) {
         fire.show();
 
@@ -217,7 +231,7 @@ function draw() {
     }
 
     // draw the ghosts
-    if (distance > 375 && distance < 490) {
+    if (distance > 375 && distance < 500) {
       for (let ghost of ghosts) {
         ghost.show();
 
