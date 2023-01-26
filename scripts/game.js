@@ -31,32 +31,32 @@ let speedPosY = 0;
 
 // preload p5
 function preload() {
-  bummer = loadSound("/images/bummer.mp3");
-  instructionsImage = loadImage("/images/newinstructions.png");
-  wordImage = loadImage("/images/wordart.png");
-  centerImage = loadImage("/images/freestyle.png");
-  leftImage = loadImage("/images/slalom.png");
-  rightImage = loadImage("/images/treeslalom.png");
-  dudeImage = loadImage("/images/dude.png");
-  gondolaImage = loadImage("/images/gondola.png");
-  startLeftImage = loadImage("/images/startleft.png");
-  startRightImage = loadImage("/images/startright.png");
-  playerStandImage = loadImage("/images/skititle.png");
-  playerImage = loadImage("/images/skier.png");
-  skiRightImage = loadImage("/images/skiright.png");
-  skiLeftImage = loadImage("/images/skileft.png");
-  skiJumpImage = loadImage("/images/skijump.png");
-  obstacleImage = loadImage("/images/tree.png");
-  rockImage = loadImage("/images/rock.png");
-  ouchImage = loadImage("/images/ouch.png");
-  fireImage = loadImage("/images/fire.gif");
-  fireBallImage = loadImage("/images/fireball.gif");
-  yetiImage = loadImage("/images/yeti.png");
-  finishLeftImage = loadImage("/images/finishleft.png");
-  finishRightImage = loadImage("/images/finishright.png");
-  hugImage = loadImage("/images/hug.png");
-  skiDownImage = loadImage("/images/skidown.png");
-  ghostImage = loadImage("/images/ghost.gif");
+  bummer = loadSound("images/bummer.mp3");
+  instructionsImage = loadImage("images/newinstructions.png");
+  wordImage = loadImage("images/wordart.png");
+  centerImage = loadImage("images/freestyle.png");
+  leftImage = loadImage("images/slalom.png");
+  rightImage = loadImage("images/treeslalom.png");
+  dudeImage = loadImage("images/dude.png");
+  gondolaImage = loadImage("images/gondola.png");
+  startLeftImage = loadImage("images/startleft.png");
+  startRightImage = loadImage("images/startright.png");
+  playerStandImage = loadImage("images/skititle.png");
+  playerImage = loadImage("images/skier.png");
+  skiRightImage = loadImage("images/skiright.png");
+  skiLeftImage = loadImage("images/skileft.png");
+  skiJumpImage = loadImage("images/skijump.png");
+  obstacleImage = loadImage("images/tree.png");
+  rockImage = loadImage("images/rock.png");
+  ouchImage = loadImage("images/ouch.png");
+  fireImage = loadImage("images/fire.gif");
+  fireBallImage = loadImage("images/fireball.gif");
+  yetiImage = loadImage("images/yeti.png");
+  finishLeftImage = loadImage("images/finishleft.png");
+  finishRightImage = loadImage("images/finishright.png");
+  hugImage = loadImage("images/hug.png");
+  skiDownImage = loadImage("images/skidown.png");
+  ghostImage = loadImage("images/ghost.gif");
 }
 
 // setup p5
