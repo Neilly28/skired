@@ -163,3 +163,13 @@ h1.title {
   /* top: 50px; */
   /* bottom: 100px; */
 }
+
+.mycomputer-img,
+.recyclebin-img,
+.ie-img {
+  position: absolute;
+}
+
+.ie-img {
+  top: 100px;
+}

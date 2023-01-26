@@ -12,6 +12,9 @@ let dudePosY = 0;
 let gondolaPosY = 700;
 let startPosY = 800;
 let distance = 0;
+let seconds = 0;
+let best;
+
 let message = "Distance:";
 let meters = "m";
 let obstacles = [];
@@ -93,10 +96,21 @@ function setup() {
     ghosts[i] = new Ghost(ghostImage, random(0, 600), random(600, 2400));
     isMoving = true;
   }
+
+  // best = localStorage.getItem("bestStorage");
+  // text(best / 100 + " sec", 525, 80);
 }
+
+function getCookie() {
+  return document.cookie;
+}
+
+let storedTime = getCookie();
+console.log("storedtime", storedTime);
 
 function draw() {
   //starting screen
+
   clear();
   if (mode == 0) {
     background("#fff");
@@ -112,10 +126,13 @@ function draw() {
     dudePosX += 3;
     dudePosY += 5;
     gondolaPosY -= 1;
+    // best = localStorage.getItem("bestStorage");
+    // text(best / 100 + " sec", 525, 80);
   }
 
   // start game
   if (mode == 1) {
+    seconds++;
     // draw background
 
     background("#fff");
@@ -271,16 +288,27 @@ function draw() {
   fill(255, 255, 255);
   strokeWeight(1);
   stroke(0);
-  rect(450, 0, 150, 55);
+  rect(450, 0, 150, 90);
   fill(0);
   textSize(14);
   text("Distance:", 455, 20);
-  text(distance + "m", 550, 20);
+  text(distance + "m", 525, 20);
   text("Speed:", 455, 40);
-  text(Math.trunc(speedPosY) + "m/s", 550, 40);
+  text(Math.trunc(speedPosY) + "m/s", 525, 40);
+  text("Time:", 455, 60);
+  text(seconds / 100 + " sec", 525, 60);
+  text("Best:", 455, 80);
+  best = seconds;
+  document.cookie = best;
+
+  text(storedTime / 100 + " sec", 525, 80);
+
+  console.log("best score", best);
+
+  text(storedTime, width / 2, height / 2);
 
   // draw finish
-  if (distance >= 500) {
+  if (distance >= 50) {
     image(finishLeftImage, 150, finishPosY, 50, 29);
     image(finishRightImage, 450, finishPosY, 50, 29);
     isFinish = true;
@@ -291,6 +319,9 @@ function draw() {
       console.log("yeti collision");
       text("GAME OVER? Hugged by Yeti ❤️", 300, 400);
       text("Hit Esc or R to play again", 300, 500);
+      // fastestTime = seconds;
+      // text("new fastest time:", 300, 525);
+      // text(fastestTime / 100, 425, 530);
       noLoop();
     }
   }
@@ -307,6 +338,6 @@ function keyPressed() {
   }
 }
 
-function keyReleased() {
-  player.setDir(0);
-}
+// function keyReleased() {
+//   player.setDir(0);
+// }

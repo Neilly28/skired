@@ -49,6 +49,13 @@ const showStart = function () {
   startImg.classList.toggle("hidden");
 };
 
+// const hideAll = function () {
+//   myComputerImg.classList.add("hidden");
+//   recycleBinImg.classList.add("hidden");
+//   ieImg.classList.add("hidden");
+//   startImg.classList.add("hidden");
+// };
+
 const myComputerBtn = document.querySelector(".desktop-icon.mycomputer");
 const myRecycleBtn = document.querySelector(".desktop-icon.recyclebin");
 const myIeBtn = document.querySelector(".desktop-icon.ie");
