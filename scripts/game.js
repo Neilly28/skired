@@ -299,36 +299,44 @@ function draw() {
   text("Speed:", 455, 40);
   text(Math.trunc(speedPosY) + "m/s", 525, 40);
   text("Time:", 455, 60);
-  text(currentTime / 100 + " sec", 525, 60);
+  text((currentTime / 100).toFixed(1) + " sec", 525, 60);
   text("Best:", 455, 80);
+  text((storedTime / 100).toFixed(1) + " sec", 525, 80);
 
-  // assign the current time as best time
   console.log("current time:", currentTime, "stored time:", storedTime);
 
-  if (storedTime == 0 || currentTime < storedTime) {
-    best = currentTime;
-  }
-
-  // store the best score into document.cookie
-  document.cookie = best;
-  text(storedTime / 100 + " sec", 525, 80);
-  text(storedTime, width / 2, height / 2);
+  // text(storedTime / 100 + " sec", 525, 80);
+  // text(storedTime, width / 2, height / 2);
 
   // draw finish
   if (distance >= 50) {
     image(finishLeftImage, 150, finishPosY, 50, 29);
     image(finishRightImage, 450, finishPosY, 50, 29);
     isFinish = true;
+
+    // assign the current time as best time
+    if (storedTime == 0 || currentTime < storedTime) {
+      best = currentTime;
+
+      // store the best score into document.cookie
+      document.cookie = best;
+    }
+
     if (finishPosY > 100) {
       finishPosY -= 3;
     } else {
       image(hugImage, player.x, player.y);
       console.log("yeti collision");
-      text("GAME OVER? Hugged by Yeti ❤️", 300, 400);
-      text("Hit Esc or R to play again", 300, 500);
+      text("GAME OVER", 250, 400);
+      text("Hugged by Yeti ❤️", 250, 420);
+      text("It's complicated..", 250, 440);
+      text("Hit Esc / Enter / R to play again :)", 200, 500);
       // fastestTime = seconds;
       // text("new fastest time:", 300, 525);
       // text(fastestTime / 100, 425, 530);
+      // display message
+      // text("New best time:", 300, 525);
+      // text(best, 425, 530);
       noLoop();
     }
   }
@@ -336,15 +344,21 @@ function draw() {
 
 // key event handlers
 function keyPressed() {
-  if (keyCode === DOWN_ARROW) {
+  if (
+    keyCode === DOWN_ARROW ||
+    keyCode === RIGHT_ARROW ||
+    keyCode === LEFT_ARROW ||
+    keyCode === ENTER
+  ) {
     mode = 1;
-  } else if (keyCode === RIGHT_ARROW) {
+  }
+  if (keyCode === RIGHT_ARROW) {
     player.setDir(1);
   } else if (keyCode === LEFT_ARROW) {
     player.setDir(-1);
   }
 }
 
-// function keyReleased() {
-//   player.setDir(0);
-// }
+function keyReleased() {
+  player.setDir(0);
+}
