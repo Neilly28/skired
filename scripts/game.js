@@ -1,4 +1,5 @@
 console.log("hello from sketch!");
+console.log("hello from github pages!");
 
 // global variables
 let bummer;
