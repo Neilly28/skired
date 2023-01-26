@@ -337,7 +337,9 @@ function draw() {
     // make finish line move until it is in positionY 100
     if (finishPosY > 100) {
       finishPosY -= 3;
-    } else {
+    }
+
+    if (dist(player.x, player.y, yetiPosX, yetiPosY) < 15) {
       // display game over
       text("GAME OVER", 250, 300);
       text("Hugged by Yeti ❤️", 250, 340);
