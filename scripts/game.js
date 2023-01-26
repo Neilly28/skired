@@ -150,7 +150,7 @@ function draw() {
     player.move();
 
     //   draw the obstacles
-    if (distance > 30 && distance < 550) {
+    if (distance > 20 && distance < 550) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
@@ -289,7 +289,7 @@ function draw() {
   // console.log("current time:", currentTime, "stored time:", storedTime);
 
   // draw finish line
-  if (distance >= 50) {
+  if (distance >= 500) {
     image(finishLeftImage, 150, finishPosY, 50, 29);
     image(finishRightImage, 450, finishPosY, 50, 29);
     isFinish = true;
@@ -302,15 +302,25 @@ function draw() {
       document.cookie = best;
     }
 
+    console.log("currenttime:", currentTime, "besttime:", best);
+
     // make finish line move until it is in positionY 100
     if (finishPosY > 100) {
       finishPosY -= 3;
     } else {
       // display game over
       text("GAME OVER", 250, 300);
-      text("Hugged by Yeti ❤️", 250, 320);
-      text("It's complicated..", 250, 340);
-      text("Hit Enter or R to play again :)", 215, 400);
+      text("Hugged by Yeti ❤️", 250, 340);
+      text("It's complicated..", 250, 360);
+      text("Hit Enter or R to play again :)", 215, 440);
+      if (currentTime > best) {
+        console.log("loser logging");
+        text("TOO SLOW!!!", 250, 400);
+      } else {
+        console.log("new best time logggingg");
+        text("NEW BEST TIME!!!:", 215, 400);
+        text((best / 100).toFixed(1) + " sec", 350, 400);
+      }
       noLoop();
     }
   }
