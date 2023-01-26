@@ -162,18 +162,6 @@ function draw() {
 
     console.log(player.x);
 
-    // set boundaries
-    if (player.x >= 620 || player.x <= -20) {
-      bummer.play();
-
-      // display game over
-      text("GAME OVER", 250, 300);
-      text("You feel off a cliff and died.", 210, 340);
-      text("Hit Enter or R to play again :)", 205, 440);
-
-      noLoop();
-    }
-
     //   draw the obstacles
     if (distance > 25 && distance < 550) {
       for (let obstacle of obstacles) {
@@ -297,6 +285,18 @@ function draw() {
       // Update the position of the moving element
       yetiPosX += distanceX * yetiSpeed;
       yetiPosY += distanceY * yetiSpeed;
+    }
+
+    // set boundaries
+    if (player.x >= 620 || player.x <= -20) {
+      bummer.play();
+
+      // display game over
+      text("GAME OVER", 250, 300);
+      text("You feel off a cliff and died.", 210, 340);
+      text("Hit Enter or R to play again :)", 205, 440);
+
+      noLoop();
     }
   }
 

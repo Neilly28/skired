@@ -7,14 +7,8 @@
 body {
   font-family: "MS Sans Serif";
   font-size: 11px;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center; */
-  /* margin-left: 100px; */
   width: 1200px;
   height: 800px;
-  /* background-color: red; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,13 +16,10 @@ body {
 }
 
 div.title {
-  /* margin-top: 100px; */
   height: 18px;
   width: 600px;
   background: #000080;
   color: #fff;
-  /* margin-left: 100px; */
-  /* border: 1px solid black; */
 }
 
 h1.title {
@@ -40,9 +31,6 @@ h1.title {
 }
 
 .title button {
-  /*position:absolute;
-    right:3px;
-    top:3px;*/
   margin: 2px 2px 2px 0;
   float: right;
   width: 14px;
@@ -55,22 +43,15 @@ h1.title {
   font-weight: bold;
   font-family: Tahoma;
   text-align: center;
-  /* focus: none; */
-}
-
-#defaultCanvas0 {
-  /* margin: 0 auto; */
 }
 
 .desktop {
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
   justify-content: space-evenly;
   column-gap: 150px;
   width: 75%;
   background-color: #008080;
-  /* margin: 0 auto; */
   padding-top: 20px;
   padding-bottom: 50px;
   position: relative;
@@ -79,30 +60,21 @@ h1.title {
 }
 
 .desktop-box {
-  /* display: flex; */
-  /* flex-direction: row; */
   margin-bottom: 50px;
-  /* padding-bottom: 100px; */
 }
 
 .desktop-text {
   font-size: 9px;
-  /* font-weight: bold; */
   font-family: Tahoma;
-  /* text-align: center; */
 }
 
 .desktop-icon {
-  /* width: 32px; */
-  /* margin-bottom: 50px; */
 }
 
 .taskbar {
-  /* float: left; */
   width: 900px;
   height: 20px;
   background-color: #c0c0c0;
-  /* border-color: #fafafa; */
   border-color: #ffffff #808080 #808080 #ffffff;
   position: absolute;
   left: 50%;
@@ -114,9 +86,6 @@ h1.title {
 
 .taskbar-start,
 .taskbar-time {
-  /*position:absolute;
-    right:3px;
-    top:3px;*/
   margin: 2px 2px 2px 0;
   float: right;
   width: 50px;
@@ -129,39 +98,25 @@ h1.title {
   font-weight: bold;
   font-family: Tahoma;
   text-align: center;
-  /* focus: none; */
-}
-
-#canvasForHTML {
-  /* border: 1px solid black; */
 }
 
 .ie {
   width: 32px;
-  /* height: 32px; */
 }
 
 .windows {
   position: absolute;
   left: 100px;
-  /* display: none; */
 }
 
 .hidden {
   display: none;
 }
 
-.start {
-  /* position: relative; */
-}
-
 .start-img {
   margin-top: 488px;
   margin-left: -100px;
   width: 60%;
-  /* position: absolute; */
-  /* top: 50px; */
-  /* bottom: 100px; */
 }
 
 .mycomputer-img,
