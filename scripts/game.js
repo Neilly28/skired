@@ -1,6 +1,7 @@
 console.log("hello from sketch!");
 
 // global variables
+let bummer;
 let button;
 let mode;
 mode = 0;
@@ -11,6 +12,7 @@ let signPosY = 400;
 let dudePosX = 0;
 let dudePosY = 0;
 let gondolaPosY = 700;
+let instructionsPosY = 220;
 let startPosY = 800;
 let distance = 0;
 let currentTime = 0;
@@ -29,6 +31,8 @@ let speedPosY = 0;
 
 // preload p5
 function preload() {
+  bummer = loadSound("/images/bummer.mp3");
+  instructionsImage = loadImage("/images/newinstructions.png");
   wordImage = loadImage("/images/wordart.png");
   centerImage = loadImage("/images/freestyle.png");
   leftImage = loadImage("/images/slalom.png");
@@ -99,6 +103,7 @@ function setup() {
 
 function draw() {
   // show start screen
+
   clear();
   if (mode == 0) {
     background("#fff");
@@ -108,10 +113,13 @@ function draw() {
     image(rightImage, 450, 400, 44, 36);
     image(dudeImage, dudePosX, dudePosY, 20, 29);
     image(playerStandImage, player.x, player.y);
-    image(gondolaImage, 400, gondolaPosY, 26, 32);
+    image(gondolaImage, 380, gondolaPosY, 26, 32);
+    image(instructionsImage, 450, instructionsPosY, 148, 116);
+
     dudePosX += 3;
     dudePosY += 5;
     gondolaPosY -= 1;
+    // instructionsPosY -= 1;
   }
 
   // start game
@@ -133,8 +141,9 @@ function draw() {
     image(dudeImage, dudePosX, dudePosY, 20, 29);
     image(startLeftImage, 150, startPosY, 42, 27);
     image(startRightImage, 450, startPosY, 42, 27);
-    image(gondolaImage, 400, gondolaPosY, 26, 32);
+    image(gondolaImage, 380, gondolaPosY, 26, 32);
     image(yetiImage, yetiPosX, yetiPosY, 30, 39);
+    image(instructionsImage, 450, instructionsPosY, 148, 116);
 
     // make environment move
     wordPosY -= 3;
@@ -144,13 +153,14 @@ function draw() {
     startPosY -= 3;
     gondolaPosY -= 5;
     speedPosY += 0.1;
+    instructionsPosY -= 3;
 
     // draw player
     player.show();
     player.move();
 
     //   draw the obstacles
-    if (distance > 20 && distance < 550) {
+    if (distance > 25 && distance < 550) {
       for (let obstacle of obstacles) {
         obstacle.show();
 
@@ -245,6 +255,11 @@ function draw() {
             // show ouch image
             image(ouchImage, player.x, player.y);
             isMoving = false;
+
+            // play sound
+            if (bummer.isPlaying() == false) {
+              bummer.play();
+            }
           }
         }
       }
