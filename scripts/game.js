@@ -12,8 +12,8 @@ let dudePosY = 0;
 let gondolaPosY = 700;
 let startPosY = 800;
 let distance = 0;
-let seconds = 0;
-let best;
+let currentTime = 0;
+let best = 0;
 
 let message = "Distance:";
 let meters = "m";
@@ -101,12 +101,15 @@ function setup() {
   // text(best / 100 + " sec", 525, 80);
 }
 
+// create function getCookie to return document.cookie
 function getCookie() {
   return document.cookie;
 }
+console.log("COOKIEEEE", document.cookie);
 
+// create storedTime variable to store the function
 let storedTime = getCookie();
-console.log("storedtime", storedTime);
+// console.log("storedtime", storedTime);
 
 function draw() {
   //starting screen
@@ -132,7 +135,7 @@ function draw() {
 
   // start game
   if (mode == 1) {
-    seconds++;
+    currentTime++;
     // draw background
 
     background("#fff");
@@ -296,15 +299,19 @@ function draw() {
   text("Speed:", 455, 40);
   text(Math.trunc(speedPosY) + "m/s", 525, 40);
   text("Time:", 455, 60);
-  text(seconds / 100 + " sec", 525, 60);
+  text(currentTime / 100 + " sec", 525, 60);
   text("Best:", 455, 80);
-  best = seconds;
+
+  // assign the current time as best time
+  console.log("current time:", currentTime, "stored time:", storedTime);
+
+  if (storedTime == 0 || currentTime < storedTime) {
+    best = currentTime;
+  }
+
+  // store the best score into document.cookie
   document.cookie = best;
-
   text(storedTime / 100 + " sec", 525, 80);
-
-  console.log("best score", best);
-
   text(storedTime, width / 2, height / 2);
 
   // draw finish
