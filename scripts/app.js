@@ -7,7 +7,7 @@ function refreshPage() {
 document.querySelector(".x").addEventListener("click", refreshPage);
 
 document.addEventListener("keydown", function (event) {
-  if (event.keyCode === 27 || event.keyCode === 82 || event.keyCode === 13) {
+  if (event.keyCode === 82 || event.keyCode === 13) {
     refreshPage();
   }
 });

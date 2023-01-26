@@ -3,6 +3,7 @@ console.log("hello from sketch!");
 // global variables
 let button;
 let mode;
+mode = 0;
 let isMoving = true;
 let isFinish = false;
 let wordPosY = 100;
@@ -14,7 +15,6 @@ let startPosY = 800;
 let distance = 0;
 let currentTime = 0;
 let best = 0;
-
 let message = "Distance:";
 let meters = "m";
 let obstacles = [];
@@ -26,8 +26,8 @@ let yetiPosY = -200;
 let yetiSpeed = 2;
 let finishPosY = 800;
 let speedPosY = 0;
-console.log(speedPosY);
 
+// preload p5
 function preload() {
   wordImage = loadImage("/images/wordart.png");
   centerImage = loadImage("/images/freestyle.png");
@@ -55,12 +55,11 @@ function preload() {
   ghostImage = loadImage("/images/ghost.gif");
 }
 
+// setup p5
 function setup() {
-  mode = 0;
-
+  // create canvas and link to html
   let canvas = createCanvas(600, 600);
   canvas.parent("canvasForHTML");
-
   imageMode(CENTER);
 
   //   spawn player
@@ -96,29 +95,13 @@ function setup() {
     ghosts[i] = new Ghost(ghostImage, random(0, 600), random(600, 2400));
     isMoving = true;
   }
-
-  // best = localStorage.getItem("bestStorage");
-  // text(best / 100 + " sec", 525, 80);
 }
-
-// create function getCookie to return document.cookie
-function getCookie() {
-  return document.cookie;
-}
-console.log("COOKIEEEE", document.cookie);
-
-// create storedTime variable to store the function
-let storedTime = getCookie();
-// console.log("storedtime", storedTime);
 
 function draw() {
-  //starting screen
-
+  // show start screen
   clear();
   if (mode == 0) {
     background("#fff");
-    // rect(0, 0, 600, 600);
-    // strokeWeight(4);
     image(wordImage, 200, 100, 308, 157);
     image(leftImage, 150, 400, 40, 36);
     image(centerImage, 300, 400, 40, 35);
@@ -129,26 +112,20 @@ function draw() {
     dudePosX += 3;
     dudePosY += 5;
     gondolaPosY -= 1;
-    // best = localStorage.getItem("bestStorage");
-    // text(best / 100 + " sec", 525, 80);
   }
 
   // start game
   if (mode == 1) {
+    // start time counter
     currentTime++;
-    // draw background
 
-    background("#fff");
-
-    // draw ui
-
+    // start distance counter
     if (frameCount % 90 === 0 && isMoving == true) {
       distance += 10;
     }
 
-    // console.log(distance);
-
-    // draw environments
+    // draw background and environment
+    background("#fff");
     image(wordImage, 200, wordPosY, 308, 157);
     image(leftImage, 150, signPosY, 40, 36);
     image(centerImage, 300, signPosY, 40, 35);
@@ -159,6 +136,7 @@ function draw() {
     image(gondolaImage, 400, gondolaPosY, 26, 32);
     image(yetiImage, yetiPosX, yetiPosY, 30, 39);
 
+    // make environment move
     wordPosY -= 3;
     signPosY -= 3;
     dudePosX += 2;
@@ -186,6 +164,8 @@ function draw() {
             random(0, 600),
             random(600, 2400)
           );
+
+          // generate new obstacles
           obstacles.push(newObstacle);
           isMoving = true;
         }
@@ -200,6 +180,8 @@ function draw() {
         // remove rocks that are out of the screen
         if (rock.y < -2000 && distance < 1000) {
           rocks.splice(0, 1);
+
+          // generate new rocks
           let newRock = new Rock(rockImage, random(0, 600), random(600, 2400));
           rocks.push(newRock);
           isMoving = true;
@@ -217,6 +199,7 @@ function draw() {
           fires.splice(0, 1);
           let newFire = new Fire(fireImage, random(0, 600), random(600, 2400));
 
+          // generate new fires
           fires.push(newFire);
           isMoving = true;
         }
@@ -237,6 +220,7 @@ function draw() {
             random(600, 2400)
           );
 
+          // generate new ghosts
           ghosts.push(newGhost);
           isMoving = true;
         }
@@ -265,7 +249,6 @@ function draw() {
         }
       }
     }
-    // console.log(obstacles, rocks, fires);
 
     // draw yeti
     if (isFinish == true) {
@@ -287,7 +270,7 @@ function draw() {
     }
   }
 
-  // draw ui
+  // draw player ui
   fill(255, 255, 255);
   strokeWeight(1);
   stroke(0);
@@ -303,12 +286,9 @@ function draw() {
   text("Best:", 455, 80);
   text((storedTime / 100).toFixed(1) + " sec", 525, 80);
 
-  console.log("current time:", currentTime, "stored time:", storedTime);
+  // console.log("current time:", currentTime, "stored time:", storedTime);
 
-  // text(storedTime / 100 + " sec", 525, 80);
-  // text(storedTime, width / 2, height / 2);
-
-  // draw finish
+  // draw finish line
   if (distance >= 50) {
     image(finishLeftImage, 150, finishPosY, 50, 29);
     image(finishRightImage, 450, finishPosY, 50, 29);
@@ -322,27 +302,29 @@ function draw() {
       document.cookie = best;
     }
 
+    // make finish line move until it is in positionY 100
     if (finishPosY > 100) {
       finishPosY -= 3;
     } else {
-      image(hugImage, player.x, player.y);
-      console.log("yeti collision");
-      text("GAME OVER", 250, 400);
-      text("Hugged by Yeti ❤️", 250, 420);
-      text("It's complicated..", 250, 440);
-      text("Hit Esc / Enter / R to play again :)", 200, 500);
-      // fastestTime = seconds;
-      // text("new fastest time:", 300, 525);
-      // text(fastestTime / 100, 425, 530);
-      // display message
-      // text("New best time:", 300, 525);
-      // text(best, 425, 530);
+      // display game over
+      text("GAME OVER", 250, 300);
+      text("Hugged by Yeti ❤️", 250, 320);
+      text("It's complicated..", 250, 340);
+      text("Hit Enter or R to play again :)", 215, 400);
       noLoop();
     }
   }
 }
 
+// create function getCookie to return document.cookie
+function getCookie() {
+  return document.cookie;
+}
+let storedTime = getCookie();
+
 // key event handlers
+let gamePaused = false;
+
 function keyPressed() {
   if (
     keyCode === DOWN_ARROW ||
@@ -356,6 +338,15 @@ function keyPressed() {
     player.setDir(1);
   } else if (keyCode === LEFT_ARROW) {
     player.setDir(-1);
+  }
+  if (key === "p") {
+    if (gamePaused) {
+      loop();
+      gamePaused = false;
+    } else {
+      noLoop();
+      gamePaused = true;
+    }
   }
 }
 
