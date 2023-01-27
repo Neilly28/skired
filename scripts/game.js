@@ -339,7 +339,8 @@ function draw() {
       finishPosY -= 3;
     }
 
-    if (dist(player.x, player.y, yetiPosX, yetiPosY) < 15) {
+    // yeti collision
+    if (dist(player.x, player.y, yetiPosX, yetiPosY) < 5) {
       // display game over
       text("GAME OVER", 250, 300);
       text("Hugged by Yeti ❤️", 250, 340);
